@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {updateFavouriteList} from '../../redux/list';
 import GeneralBar from '../../components/GeneralBar';
 import FlatItemList from '../../components/FlatItemList';
+import {getCloseBtn} from '../../components/NavigatorItem';
 
 const mapStateToProps = state => {
   return {favouriteList: state.listState.favouriteList};
@@ -17,9 +18,19 @@ class FavouriteScreen extends React.Component {
 
     let titleBar = 'Favourite';
 
+    const {params} = navigation.state;
+
+    const closeBtn = getCloseBtn({paddingRight: 20}, 0, () => {
+      if (params) {
+        params.onCloseBtnClicked();
+      }
+    });
+
     let json = {
       headerTitle: <GeneralBar customTitle={titleBar} />,
       gesturesEnabled: false,
+      headerRight: closeBtn,
+      headerLeft: null,
     };
 
     return json;
@@ -29,15 +40,15 @@ class FavouriteScreen extends React.Component {
     super(props);
   }
 
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.favouriteList.length !== this.props.favouriteList.length) {
-      this.props.navigation.setParams({
-        badgeNumber: this.props.favouriteList.length,
-      });
-    }
+  componentDidMount() {
+    this.props.navigation.setParams({
+      onCloseBtnClicked: this._onCloseBtnClicked,
+    });
   }
+
+  _onCloseBtnClicked = () => {
+    this.props.navigation.goBack(null);
+  };
 
   render() {
     return (

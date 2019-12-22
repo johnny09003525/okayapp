@@ -8,6 +8,9 @@ import {getListFunction} from './HomeViewModel';
 
 import {updateFavouriteList} from '../../redux/list';
 import FlatItemList from '../../components/FlatItemList';
+import {getMenuBtn} from '../../components/NavigatorItem';
+import NavigationService from '../../helper/NavigationService';
+import * as routeNames from '../../configs/routeNames';
 
 const mapStateToProps = state => {
   return {
@@ -18,12 +21,25 @@ const mapStateToProps = state => {
 class HomeScreen extends React.Component {
   static navigationOptions = ({navigation}) => {
     // console.log(navigation);
+    const {params} = navigation.state;
+
+    let badgeNumber = 0;
+    if (params) {
+      badgeNumber = params.badgeNumber ? params.badgeNumber : 0;
+    }
+
+    const menuBtn = getMenuBtn({paddingRight: 20}, badgeNumber, () => {
+      if (params) {
+        params.onMenuBtnClicked();
+      }
+    });
 
     let titleBar = 'Home';
 
     let json = {
       headerTitle: <GeneralBar customTitle={titleBar} />,
       gesturesEnabled: false,
+      headerRight: menuBtn,
     };
 
     return json;
@@ -34,9 +50,20 @@ class HomeScreen extends React.Component {
     this.state = {listArray: []};
   }
 
-  componentDidUpdate(prevProps, prevState) {}
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.favouriteList.length !== this.props.favouriteList.length) {
+      this.props.navigation.setParams({
+        badgeNumber: this.props.favouriteList.length,
+      });
+    }
+  }
 
   componentDidMount() {
+    this.props.navigation.setParams({
+      badgeNumber: 0,
+      onMenuBtnClicked: this._onMenuBtnClicked,
+    });
+
     getListFunction(
       listArray => {
         // console.log(listArray);
@@ -47,6 +74,10 @@ class HomeScreen extends React.Component {
       },
     );
   }
+
+  _onMenuBtnClicked = () => {
+    NavigationService.navigate(routeNames.FAVOURITE_STACK);
+  };
 
   render() {
     const {listArray} = this.state;
