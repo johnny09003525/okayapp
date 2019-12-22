@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import {connect} from 'react-redux';
 
 import {updateFavouriteList} from '../../redux/list';
 import GeneralBar from '../../components/GeneralBar';
 import FlatItemList from '../../components/FlatItemList';
 import {getCloseBtn} from '../../components/NavigatorItem';
+import commonStyles from '../../styles/index';
+import {scale} from '../../helper/ScreenHelper';
 
 const mapStateToProps = state => {
   return {favouriteList: state.listState.favouriteList};
@@ -53,13 +55,17 @@ class FavouriteScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <FlatItemList
-          data={this.props.favouriteList}
-          favouriteList={this.props.favouriteList}
-          updateFavouriteList={item => {
-            this.props.updateFavouriteList(item);
-          }}
-        />
+        {this.props.favouriteList.length > 0 ? (
+          <FlatItemList
+            data={this.props.favouriteList}
+            favouriteList={this.props.favouriteList}
+            updateFavouriteList={item => {
+              this.props.updateFavouriteList(item);
+            }}
+          />
+        ) : (
+          <Text style={styles.textStyle}>No Favourite </Text>
+        )}
       </View>
     );
   }
@@ -68,6 +74,12 @@ class FavouriteScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textStyle: {
+    ...commonStyles.text.regular,
+    fontSize: scale(15),
   },
 });
 
