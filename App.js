@@ -12,25 +12,9 @@ import NavigationService from './helper/NavigationService';
 
 import store from './redux/store';
 import {loadFavouriteList} from './redux/list';
-import transition from './helper/TransitionHelper';
 
 import HomeScreen from './screens/HomeScreen';
-import GeneralBar from './components/GeneralBar';
 import FavouriteScreen from './screens/FavouriteScreen/index';
-
-const navigatorBar = {
-  headerBackTitle: null,
-  headerTitle: <GeneralBar />,
-  headerStyle: {
-    backgroundColor: colors.white,
-    borderBottomWidth: 1,
-  },
-  headerTitleContainerStyle: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-  },
-};
 
 // navigators
 const AppStackNavigator = createStackNavigator(
