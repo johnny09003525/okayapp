@@ -22,5 +22,6 @@ export const ListSchema = {
     salePrice: {type: 'int', default: 0},
     floorName: nullableString,
     propertyPhoto: nullableString,
+    propertyPhotoList: Array,
   },
 };
