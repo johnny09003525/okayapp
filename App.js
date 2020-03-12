@@ -11,7 +11,7 @@ import * as routeNames from './configs/routeNames';
 import NavigationService from './helper/NavigationService';
 
 import store from './redux/store';
-import {loadFavouriteList} from './redux/list';
+// import {loadFavouriteList} from './redux/list';
 
 import HomeScreen from './screens/HomeScreen';
 import FavouriteScreen from './screens/FavouriteScreen/index';
@@ -20,7 +20,7 @@ import FavouriteScreen from './screens/FavouriteScreen/index';
 const AppStackNavigator = createStackNavigator(
   {
     [routeNames.HOME_STACK]: HomeScreen,
-    [routeNames.FAVOURITE_STACK]: FavouriteScreen,
+    // [routeNames.FAVOURITE_STACK]: FavouriteScreen,
   },
   {
     mode: 'modal',
@@ -40,7 +40,7 @@ class AppScreen extends Component {
   }
 
   componentDidMount() {
-    this.props.loadFavouriteList();
+    // this.props.loadFavouriteList();
   }
 
   componentWillUnmount() {}
@@ -57,15 +57,13 @@ class AppScreen extends Component {
   }
 }
 
-AppScreen.propTypes = {loadFavouriteList: PropTypes.func};
+AppScreen.propTypes = {};
 
 // const mapDispatchToProps = dispatch => {
 //   return { logoutUser: () => dispatch(logoutUser) };
 // };
 
-const ConnectedAppScreen = connect(mapStateToProps, {loadFavouriteList})(
-  AppScreen,
-);
+const ConnectedAppScreen = connect(mapStateToProps, {})(AppScreen);
 
 const RootSwitchNavigator = createSwitchNavigator({
   [routeNames.APP_STACK]: ConnectedAppScreen,

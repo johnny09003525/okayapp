@@ -11,6 +11,8 @@ import FlatItemList from '../../components/FlatItemList';
 import {getMenuBtn} from '../../components/NavigatorItem';
 import NavigationService from '../../helper/NavigationService';
 import * as routeNames from '../../configs/routeNames';
+import FastImage from 'react-native-fast-image';
+import {getWidth, getHeight} from '../../helper/ScreenHelper';
 
 const mapStateToProps = state => {
   return {
@@ -67,7 +69,10 @@ class HomeScreen extends React.Component {
     getListFunction(
       listArray => {
         // console.log(listArray);
-        this.setState({listArray});
+        // this.setState({listArray});
+        const item = listArray[0];
+        const uri = item.propertyPhotoList;
+        this.setState({listArray: uri});
       },
       error => {
         console.log(error);
@@ -81,15 +86,12 @@ class HomeScreen extends React.Component {
 
   render() {
     const {listArray} = this.state;
+
     return (
       <View style={styles.container}>
-        <FlatItemList
-          data={listArray}
-          favouriteList={this.props.favouriteList}
-          updateFavouriteList={item => {
-            this.props.updateFavouriteList(item);
-          }}
-        />
+        <FastImage
+          style={{width: getWidth(), height: getHeight()}}
+          source={{uri: listArray[0]}}></FastImage>
       </View>
     );
   }

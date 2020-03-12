@@ -1,5 +1,5 @@
-import realm from '../helper/RealmHelper';
-import {LIST_SCHEMA} from './schema/listSchema';
+// import realm from '../helper/RealmHelper';
+// import {LIST_SCHEMA} from './schema/listSchema';
 
 export function loadFavouriteListFromDB() {
   const existFavourite = realm.objects(LIST_SCHEMA);

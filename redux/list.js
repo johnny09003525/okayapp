@@ -23,22 +23,22 @@ export default (state = initialState, action) => {
   }
 };
 
-export const loadFavouriteList = () => (dispatch, getState) => {
-  const favouriteList = loadFavouriteListFromDB();
-  dispatch({type: UPDATE_FAVOURITE, payload: {favouriteList}});
-};
+// export const loadFavouriteList = () => (dispatch, getState) => {
+//   const favouriteList = loadFavouriteListFromDB();
+//   dispatch({type: UPDATE_FAVOURITE, payload: {favouriteList}});
+// };
 
-export const updateFavouriteList = favouriteObject => (dispatch, getState) => {
-  let favouriteList = getState().listState.favouriteList.map(r => r);
-  const isExisted = favouriteList.find(rx => rx.id === favouriteObject.id);
+// export const updateFavouriteList = favouriteObject => (dispatch, getState) => {
+//   let favouriteList = getState().listState.favouriteList.map(r => r);
+//   const isExisted = favouriteList.find(rx => rx.id === favouriteObject.id);
 
-  if (isExisted) {
-    favouriteList = favouriteList.filter(rxx => rxx.id !== favouriteObject.id);
-    deleteFavourite(favouriteObject);
-  } else {
-    favouriteList.push(favouriteObject);
-    insertFavourite(favouriteObject);
-  }
+//   if (isExisted) {
+//     favouriteList = favouriteList.filter(rxx => rxx.id !== favouriteObject.id);
+//     deleteFavourite(favouriteObject);
+//   } else {
+//     favouriteList.push(favouriteObject);
+//     insertFavourite(favouriteObject);
+//   }
 
-  dispatch({type: UPDATE_FAVOURITE, payload: {favouriteList}});
-};
+//   dispatch({type: UPDATE_FAVOURITE, payload: {favouriteList}});
+// };
